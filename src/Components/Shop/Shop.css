@@ -11,3 +11,8 @@
     margin: 100px;
     padding: 1px
 }
+
+.order-area {
+    background: rgba(255, 153, 0, 0.3);
+    padding: 40px 80px;
+}

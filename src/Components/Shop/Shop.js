@@ -1,20 +1,36 @@
 import React, { useEffect, useState } from 'react';
+import { Link, useLoaderData } from 'react-router-dom';
+import { addToDb, deleteShoppingCart, getStoredCard } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import "./Shop.css"
 
 const Shop = () => {
-    const [products, setProducts] = useState([]);
+    const products = useLoaderData()
     const [cart, setCart] = useState([])
+    const clearAll = () => {
+        setCart([])
+        deleteShoppingCart();
+    }
+
     useEffect(() => {
-        fetch("products.json")
-            .then(res => res.json())
-            .then(data => setProducts(data))
-    }, [])
-    const addToOrderContainer = (products) => {
-        console.log("products");
-        const newCart = [...cart, products];
+        const storeCart = getStoredCard();
+        const savedCart = [];
+        for (const id in storeCart) {
+            const addedItem = products.find(product => product.id === id);
+            if (addedItem) {
+                const quantity = storeCart[id];
+                addedItem.quantity = quantity;
+                savedCart.push(addedItem);
+            }
+        }
+        setCart(savedCart);
+    }, [products])
+    const addToOrderContainer = (product) => {
+        // console.log("products");
+        const newCart = [...cart, product];
         setCart(newCart);
+        addToDb(product.id)
     }
     return (
         <div className='shop-container'>
@@ -33,7 +49,10 @@ const Shop = () => {
             <div className='order-area'>
                 <Cart
                     pushCart={cart}
-                ></Cart>
+                    clearAll={clearAll}
+                >
+                    <Link to="/order"><button>Revew Order</button></Link>
+                </Cart>
             </div>
         </div>
     );

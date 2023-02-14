@@ -7,6 +7,15 @@
     padding: 0 100px 0;
 }
 
+.active {
+    text-decoration: underline;
+    background-color: blueviolet;
+    border-radius: 6px;
+
+}
+
+
+
 .header-nav a {
     font-size: 18px;
     text-decoration: none;
@@ -15,7 +24,7 @@
 }
 
 .header-nav a:hover {
-    text-decoration: underline;
+
     color: orange;
     transition: 0.5s;
 

@@ -10,7 +10,7 @@ const Product = (props) => {
             <p>Price: ${price}</p>
             <p>Seller:{seller}</p>
             <p>Ratings {ratings} stars</p>
-            <div onClick={() => props.pushToOrder(props.product)} className='btn-cart'><p>addToCart</p></div>
+            <div onClick={() => props.pushToOrder(props.productContainer)} className='btn-cart'><p>addToCart</p></div>
         </div>
     );
 };
